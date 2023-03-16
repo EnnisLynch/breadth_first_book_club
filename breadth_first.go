@@ -99,18 +99,28 @@ func main() {
 	//a large number of strings
 	var stringBuilder strings.Builder
 
-	var tokenFound = true //when tokens are empty we are done
+	var tokenFound = true
+	var character_count = 0
 	for tokenFound {
 		tokenFound = false
 		for _, scanner := range scanners {
 			if scanner.Scan() {
-				tokenFound = true          //True if there is a word!
-				tempWord := scanner.Text() //get the word string
+				//True if there is a word!
+				tokenFound = true
+				tempWord := scanner.Text()
+				character_count = character_count + len(tempWord)
+
 				if stringBuilder.Len() > 0 {
 					//Solves problem of spacing
 					stringBuilder.WriteString(" ")
 				}
 				stringBuilder.WriteString(tempWord)
+
+				if character_count > 80 {
+					character_count = 0
+					//Add new line to make chapters more readable
+					stringBuilder.WriteString("\n")
+				}
 			}
 		}
 	} //end foreach token
