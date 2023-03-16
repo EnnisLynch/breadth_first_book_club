@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/csv"
+	"fmt"
 	"os"
 	"strconv"
 )
@@ -67,4 +68,17 @@ func main() {
 	} //end lines
 
 	fileStream.Close() //be good file stewards
+
+	//read our book text data into a byte array
+	buffer, commonError := os.ReadFile("pelle.txt") //not this doesn't need to be closed after
+	checkForErrorAndFail(commonError)
+
+	for _, record := range chapters {
+		//fmt.Println(record.chapter_start_byte, record.chapter_end_byte)
+		var slice = buffer[record.chapter_start_byte:record.chapter_end_byte]
+		var chapter_as_string = string(slice)
+
+		fmt.Println(chapter_as_string[0:100]) //print first 100 words
+
+	} //end chapters
 }
