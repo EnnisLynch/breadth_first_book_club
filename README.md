@@ -1,4 +1,10 @@
 # breadth_first_book_club
+Note: This code base is a companion to a YouTube educational video. I have published
+this code first before publishing the video so you will see some updates with actual video links!!!!
+
+Note: The code is currently tagged for the video, however, in editting, we may discover improvements. Thus
+you might see some craziness in the commit history. Sorry, not sorry.
+
 Breadth first book club is a companion repository to the educational video: XXXXX. 
 Following along with the video using the appropriate labels in the repo
 
