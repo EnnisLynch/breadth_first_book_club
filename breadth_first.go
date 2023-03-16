@@ -1,10 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"encoding/csv"
-	"fmt"
 	"os"
 	"strconv"
+	"strings"
 )
 
 // Go doesn't have a tuple
@@ -73,12 +74,19 @@ func main() {
 	buffer, commonError := os.ReadFile("pelle.txt") //not this doesn't need to be closed after
 	checkForErrorAndFail(commonError)
 
+	var scanners []*bufio.Scanner //the tokenizers for each chapter
+
 	for _, record := range chapters {
 		//fmt.Println(record.chapter_start_byte, record.chapter_end_byte)
 		var slice = buffer[record.chapter_start_byte:record.chapter_end_byte]
 		var chapter_as_string = string(slice)
 
-		fmt.Println(chapter_as_string[0:100]) //print first 100 words
+		//fmt.Println(chapter_as_string[0:100]) //print first 100 words
+		string_reader := strings.NewReader(chapter_as_string)
+		scanner := bufio.NewScanner(string_reader)
+		//Tokenize by words, default is by newline
+		scanner.Split(bufio.ScanWords)
+		scanners = append(scanners, scanner)
 
 	} //end chapters
 }
