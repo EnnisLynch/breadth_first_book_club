@@ -2,10 +2,24 @@ package main
 
 import (
 	"encoding/csv"
-	"fmt"
 	"os"
 	"strconv"
 )
+
+// Go doesn't have a tuple
+// so we can create our own
+type Chapter struct {
+	chapter_start_byte int64
+	chapter_end_byte   int64
+}
+
+// Helper method to create a new chapter
+func NewChapter(start_byte int64, end_byte int64) *Chapter {
+	var chapter = new(Chapter)
+	chapter.chapter_start_byte = start_byte
+	chapter.chapter_end_byte = end_byte
+	return chapter
+}
 
 // This method will panic on errors
 // just makes code a bit cleaner ...
@@ -18,8 +32,8 @@ func checkForErrorAndFail(someError error) {
 
 // Main method
 func main() {
-	//Open our index file and do absolutely nothing with it!
-	var commonError error //use as common error variable
+	var commonError error   //use as common error variable
+	var chapters []*Chapter //contain all index values for chapters
 	fileStream, commonError := os.Open("pelle.txt.csv")
 	checkForErrorAndFail(commonError)
 
@@ -44,7 +58,11 @@ func main() {
 			//Print our start and end index to the
 			//output stream to see that we did
 			//actual work!
-			fmt.Println(start_index, end_index)
+			//fmt.Println(start_index, end_index)
+
+			//Store the chapter index information
+			var chapter = NewChapter(start_index, end_index)
+			chapters = append(chapters, chapter) //appends to splice
 		}
 	} //end lines
 
