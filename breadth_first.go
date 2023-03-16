@@ -89,4 +89,29 @@ func main() {
 		scanners = append(scanners, scanner)
 
 	} //end chapters
+
+	//Loop through all scanners and as
+	//long as one-token is found,
+	//create a new book
+
+	//This variable will hold our new book
+	//as string builder is the best way to concatenate
+	//a large number of strings
+	var stringBuilder strings.Builder
+
+	var tokenFound = true //when tokens are empty we are done
+	for tokenFound {
+		tokenFound = false
+		for _, scanner := range scanners {
+			if scanner.Scan() {
+				tokenFound = true          //True if there is a word!
+				tempWord := scanner.Text() //get the word string
+				if stringBuilder.Len() > 0 {
+					//Solves problem of spacing
+					stringBuilder.WriteString(" ")
+				}
+				stringBuilder.WriteString(tempWord)
+			}
+		}
+	} //end foreach token
 }
