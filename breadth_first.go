@@ -124,4 +124,15 @@ func main() {
 			}
 		}
 	} //end foreach token
+	//Output our great work to console
+	//fmt.Println(stringBuilder.String())
+
+	//output our book to a file
+	outputStream, commonError := os.Create("output.txt")
+	checkForErrorAndFail(commonError)
+
+	outputStream.WriteString(stringBuilder.String())
+	outputStream.Sync()
+	outputStream.Close()
+
 }
